@@ -1,237 +1,495 @@
 # Technical Documentation
-
-## Tech Stack
-
-- **HTML5** for semantic structure and modern accessibility.
-- **CSS3** for layout, theming, responsive design, and CSS variables (Design Tokens).
-- **JavaScript (ES6+)** for asynchronous data handling, dynamic filtering/sorting, DOM manipulation, and state management.
+## SWE363 – Assignment 4 | Fahad Alzubaidi (202271360)
 
 ---
 
-## Key Features
+## 1. Tech Stack
 
-### 1. Dynamic Content & Interactivity
-- **Project Filtering + Sorting**: A real-time filter system that allows users to filter projects by category (Machine Learning, Web Development, Automation), search live by typing, AND sort results by title (A→Z, Z→A) or tag count.
-- **GitHub API Integration**: A "GitHub Activity" section that dynamically fetches the latest repositories from the GitHub API using `async/await`.
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| Structure | **HTML5** | Semantic markup, accessibility (`aria-*`), modals, canvas element |
+| Presentation | **CSS3** + Custom Properties | Design tokens, animations, responsive layout, dark/light themes |
+| Logic | **Vanilla JavaScript (ES6+)** | All interactivity — no frameworks, no build step |
+| External APIs | **GitHub REST API v3** | Live repository data fetched client-side |
+| Fonts | **Google Fonts** (Inter + Outfit) | Professional typography |
 
-### 2. Advanced Data Handling & State Management
-- **LocalStorage Persistence**: Theme preferences (Light/Dark mode) and visitor name are stored in `localStorage` to persist across sessions.
-- **Asynchronous Feedback**: Integrated loading spinners and friendly error states (with retry logic) for all API-driven content.
-- **Visitor Name Widget**: The visitor enters their name and receives a personalized greeting that persists on future visits.
-
-### 3. User Experience & Feedback
-- **Robust Form Validation**: Real-time validation for the contact form with visual error highlighting (red border + shake animation) on specific fields and a success confirmation animation.
-- **Empty States**: Custom "No matches found" UI for search results, providing clear guidance on how to adjust filters.
-- **Visit Timer**: A live counter that shows how long the visitor has been on the page.
-
-### 4. Modern Animations
-- **Smooth Navigation**: Smooth scrolling with offset calculations for fixed headers and active link highlighting.
-- **Scroll Reveal**: Elements fade and slide into view as the user scrolls, implemented via the `IntersectionObserver` API for optimal performance.
-- **Status Animations**: Custom `cubic-bezier` transitions for success/error messages to provide a premium feel.
+**Zero npm packages. Zero runtime dependencies.**
 
 ---
 
-## Code Architecture & Key Snippets
+## 2. Project Structure
 
-### Filter + Sort Logic (`js/script.js`)
+```
+├── index.html                    # Single-page application entry point
+├── css/
+│   └── styles.css                # Complete design system (2100+ lines)
+├── js/
+│   └── script.js                 # All interactivity (~850 lines)
+├── assets/
+│   ├── cv/Fahad_Alzubaidi_CV.pdf # Downloadable CV
+│   └── images/                   # profile.jpg, project1-3.jpg
+├── docs/
+│   ├── technical-documentation.md
+│   └── ai-usage-report.md
+└── README.md
+```
 
-The `filterProjects()` function combines three inputs — search text, category filter, and sort order — into a single unified pipeline:
+---
+
+## 3. Feature Architecture
+
+### 3.1 Particle Canvas Background
+
+A self-contained IIFE draws floating particles over the hero section using the **Canvas 2D API**:
 
 ```javascript
-function filterProjects() {
-    const searchTerm = projectSearch.value.toLowerCase();
-    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-    const sortValue = projectSort ? projectSort.value : 'default';
+(function initParticles() {
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
-    const projectCards = getProjectCards();
-    const matchingCards = [];
-    const hiddenCards = [];
+    function Particle() {
+        this.x  = Math.random() * W;
+        this.y  = Math.random() * H;
+        this.r  = Math.random() * 1.5 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.alpha = Math.random() * 0.4 + 0.1;
+    }
 
-    // Step 1: Filter cards by search + category
-    projectCards.forEach(card => {
-        const title = card.querySelector('.project-title').textContent.toLowerCase();
-        const matchesSearch = !searchTerm || title.includes(searchTerm);
-        const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
+    function drawParticles() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(99, 102, 241, ${p.alpha})`;
+            ctx.fill();
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+        });
+        requestAnimationFrame(drawParticles);
+    }
 
-        if (matchesSearch && matchesCategory) {
-            matchingCards.push(card);
-        } else {
-            hiddenCards.push(card);
-        }
-    });
+    buildParticles();
+    drawParticles();
+})();
+```
 
-    // Step 2: Sort the matching cards
-    matchingCards.sort((a, b) => {
-        switch (sortValue) {
-            case 'title-asc':  return titleA.localeCompare(titleB);
-            case 'title-desc': return titleB.localeCompare(titleA);
-            // ... other sort options
-        }
-    });
+**Key decisions:**
+- Particle count scales with viewport area (`W * H / 14000`) so density stays consistent from mobile to 4K.
+- Uses `requestAnimationFrame` — zero `setInterval` polling, no main-thread blocking.
+- Particle color reads the active theme (`data-theme`) so it adapts to dark/light mode.
 
-    // Step 3: Re-order DOM nodes + show/hide with animation
+---
+
+### 3.2 Typewriter Effect
+
+Cycles through an array of professional roles character-by-character:
+
+```javascript
+const typewriterRoles = [
+    'Software Engineer', 'Data Analyst', 'ML Enthusiast',
+    'Web Developer', 'Data Automation Engineer', 'Problem Solver', 'KFUPM Student'
+];
+
+function runTypewriter() {
+    const currentRole = typewriterRoles[typeIndex];
+    if (isDeleting) {
+        typewriterEl.textContent = currentRole.slice(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typewriterEl.textContent = currentRole.slice(0, charIndex + 1);
+        charIndex++;
+    }
+
+    let delay = isDeleting ? 60 : 100;
+    if (!isDeleting && charIndex === currentRole.length) {
+        delay = 1800; isDeleting = true;         // Pause at end
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        typeIndex = (typeIndex + 1) % typewriterRoles.length;
+        delay = 400;
+    }
+    setTimeout(runTypewriter, delay);
 }
 ```
 
-### State Management with localStorage (`js/script.js`)
+---
 
-Visitor name is saved and restored across sessions:
+### 3.3 Experience & Education Timeline
+
+A CSS alternating-column layout (`timeline-item--left` / `--right`) with `IntersectionObserver` scroll reveal:
 
 ```javascript
-// Save
-localStorage.setItem('visitorName', name);
+const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            timelineObserver.unobserve(entry.target);     // Observe once only
+        }
+    });
+}, { threshold: 0.15 });
 
-// Restore on page load
-const savedName = localStorage.getItem('visitorName');
-if (savedName) {
-    showVisitorGreeting(savedName);
+document.querySelectorAll('.timeline-card').forEach(card =>
+    timelineObserver.observe(card)
+);
+```
+
+**Content (from CV):**
+| Entry | Organisation | Period |
+|-------|-------------|--------|
+| 🎓 B.Sc. Software Engineering | KFUPM — GPA 3.525/4.0 | 2022 – 2027 |
+| 🏢 Administrative Assistant (Part-time) | KIKX | Sep 2024 – Present |
+| 📱 Marketing & Biz Dev Coordinator (Part-time) | Unipal | May – Aug 2025 |
+| 💡 Tech Committee Leader | KISEF Forum | Jan – May 2025 |
+
+---
+
+### 3.4 Animated Skill Progress Bars
+
+Uses a CSS Custom Property `--target-width` as the animation target, toggled by a class:
+
+```css
+.skill-bar-fill {
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-bar-fill.animate {
+    width: var(--target-width);
 }
 ```
 
-### GitHub API Fetch with Error Handling (`js/script.js`)
+```javascript
+const skillBarsObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+        document.querySelectorAll('.skill-bar-fill').forEach(bar =>
+            bar.classList.add('animate')
+        );
+        skillBarsObserver.disconnect();   // Trigger once
+    }
+}, { threshold: 0.3 });
+```
+
+**Skill levels defined:**
+
+| Skill | Level |
+|-------|-------|
+| Python | 85% |
+| JavaScript | 80% |
+| HTML & CSS | 90% |
+| Java | 70% |
+| Machine Learning | 75% |
+| SQL / MongoDB | 65% |
+| Data Analysis | 80% |
+| Data Automation | 78% |
+
+---
+
+### 3.5 Animated Stats Counter
+
+`requestAnimationFrame` based counter triggered by `IntersectionObserver`:
+
+```javascript
+function animateCounter(element, target, suffix, duration = 1500) {
+    let start = 0;
+    const step = target / (duration / 16);  // ~60fps
+
+    function update() {
+        start = Math.min(start + step, target);
+        element.textContent = Math.floor(start) + suffix;
+        if (start < target) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+```
+
+**Stats defined:**
+
+| Stat | Target | Label |
+|------|--------|-------|
+| 3+ | Professional Roles | Real work history |
+| 10+ | Technologies | From CV skills list |
+| 4 | Years of Study | 2022 → 2026 |
+| 100% | Passion for Code | — |
+
+---
+
+### 3.6 Project Modals
+
+A focus-trapped, keyboard-accessible overlay system:
+
+```javascript
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';   // Prevent background scroll
+    const closeBtn = modal.querySelector('.modal-close');
+    if (closeBtn) setTimeout(() => closeBtn.focus(), 100);  // Focus trap
+}
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape')
+        document.querySelectorAll('.modal-overlay.active').forEach(closeModal);
+});
+```
+
+**Accessibility attributes:**
+- `role="dialog"`, `aria-modal="true"`, `aria-labelledby` on every modal
+- Close button has `aria-label="Close modal"`
+
+---
+
+### 3.7 GitHub API Integration
+
+Live fetch, lazy-loaded, and XSS-safe:
 
 ```javascript
 async function fetchGitHubRepos() {
-    try {
-        const response = await fetch(
-            `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
-        );
-        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-        const repos = await response.json();
-        // ... render cards
-    } catch (error) {
-        // Show error state with Retry button
-        container.innerHTML = `<div class="error-state">
-            <p>Failed to load GitHub activity.</p>
-            <button onclick="fetchGitHubRepos()">Retry</button>
-        </div>`;
+    const res = await fetch(
+        `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`,
+        { headers: { Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    const repos = await res.json();
+    repos.forEach(repo => {
+        card.innerHTML = `<h3>${escapeHtml(repo.name)}</h3>...`;   // XSS-safe
+    });
+}
+
+// XSS prevention helper
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
+// Lazy-load: only fetch when section is visible
+const githubObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+        fetchGitHubRepos();
+        githubObserver.disconnect();
     }
+}, { threshold: 0.1 });
+```
+
+---
+
+### 3.8 Project Filter + Sort
+
+Single unified pipeline combining three inputs:
+
+```javascript
+function filterProjects() {
+    const searchTerm   = projectSearch.value.toLowerCase();
+    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter;
+    const sortValue    = projectSort.value;
+
+    // Step 1: Partition into matching / hidden
+    projectCards.forEach(card => {
+        const title    = card.querySelector('.project-title').textContent.toLowerCase();
+        const tags     = Array.from(card.querySelectorAll('.tag'))
+                             .map(t => t.textContent.toLowerCase());
+        const category = card.dataset.category;
+
+        const matchesSearch   = !searchTerm || title.includes(searchTerm)
+                                || tags.some(t => t.includes(searchTerm));
+        const matchesCategory = activeFilter === 'all' || category === activeFilter;
+        (matchesSearch && matchesCategory ? matching : hidden).push(card);
+    });
+
+    // Step 2: Sort matching cards
+    matching.sort((a, b) => { /* title-asc, title-desc, tags-asc, tags-desc */ });
+
+    // Step 3: Re-order DOM + animate in
+    [...matching, ...hidden].forEach(card => grid.appendChild(card));
 }
 ```
 
-### CSS Design System (`:root` in `css/styles.css`)
+**Filter categories:** All · Machine Learning · Web Development · Automation · Data
 
-All colors, spacing, and typography are defined as CSS custom properties so a single change propagates everywhere:
+---
+
+### 3.9 Theme Toggle (Dark / Light Mode)
+
+```javascript
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+});
+```
+
+All colors are CSS Custom Properties declared in `:root` and overridden in `[data-theme="dark"]`:
 
 ```css
 :root {
-    --color-primary: hsl(210, 90%, 55%);
-    --color-bg-primary: hsl(0, 0%, 100%);
-    --font-primary: 'Inter', -apple-system, sans-serif;
-    --spacing-md: 1.5rem;
-    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --color-primary:    hsl(235, 86%, 65%);
+    --color-bg-primary: hsl(220, 20%, 97%);
+    --color-text-primary: hsl(215, 25%, 15%);
 }
 
 [data-theme="dark"] {
-    --color-primary: hsl(210, 90%, 60%);
-    --color-bg-primary: hsl(210, 15%, 8%);
+    --color-primary:    hsl(235, 86%, 70%);
+    --color-bg-primary: hsl(215, 28%, 9%);
+    --color-text-primary: hsl(210, 20%, 96%);
 }
 ```
 
+---
 
-## Performance Optimization
+### 3.10 State Management
 
-| Optimization | Implementation |
+All user state uses `localStorage` — no backend required:
+
+| Key | Value | Purpose |
+|-----|-------|---------|
+| `theme` | `'dark'` or `'light'` | Persist theme across sessions |
+| `visitorName` | String | Personalised greeting on return visits |
+
+---
+
+## 4. CSS Design System
+
+| Token Category | Example Token | Value |
+|---------------|--------------|-------|
+| Primary colour | `--color-primary` | `hsl(235, 86%, 65%)` — Indigo |
+| Accent colour | `--color-accent` | `hsl(190, 85%, 50%)` — Cyan |
+| Secondary | `--color-secondary` | `hsl(340, 82%, 60%)` — Rose |
+| Background | `--color-bg-primary` | Theme-aware |
+| Spacing unit | `--spacing-md` | `1.5rem` |
+| Border radius | `--radius-lg` | `1rem` |
+| Transition | `--transition-base` | `250ms cubic-bezier(0.4, 0, 0.2, 1)` |
+| Font display | `--font-display` | Outfit |
+| Font body | `--font-primary` | Inter |
+
+---
+
+## 5. Performance Optimisations
+
+| Optimisation | Implementation |
 |---|---|
-| **Lazy loading images** | All `<img>` tags use `loading="lazy"` to defer off-screen images |
-| **Deferred API calls** | GitHub API fetch is triggered by `IntersectionObserver` — only fires when the section enters the viewport |
-| **CSS Custom Properties** | No repeated color/spacing values; a single `:root` change propagates everywhere |
-| **Minimal dependencies** | Zero npm packages or external JS libraries — only Google Fonts loaded externally |
-| **Efficient DOM queries** | `querySelectorAll` scoped to `.project-card` only when needed, not on every scroll event |
+| **Lazy image loading** | `loading="lazy"` on all `<img>` except the hero photo (`loading="eager"`) |
+| **Deferred API fetch** | GitHub API only called when section enters viewport (`IntersectionObserver`) |
+| **rAF-based animations** | Counters and particles use `requestAnimationFrame`, not `setInterval` |
+| **One-time observers** | All `IntersectionObserver` instances call `.disconnect()` or `.unobserve()` after triggering |
+| **Zero external JS libs** | No jQuery, no Lodash, no animation library — all custom |
+| **CSS-driven animations** | Skill bars, timeline reveals, and badge floats are pure CSS — no JS per-frame cost |
 
 ---
 
-## Comprehensive Testing Procedures
+## 6. Responsive Breakpoints
 
-To ensure the application meets high standards of stability and performance, the following testing procedures were executed.
-
-### 1. Manual Unit Testing (Interaction Blocks)
-Each major UI component was tested for isolated behavior:
-- **Theme Toggle**: Verified that clicking the toggle switches all CSS variables immediately and updates `localStorage`. Tested that the preference persists after a hard browser refresh (F5).
-- **Visitor Widget**: Entered various inputs (long strings, special characters, empty strings). Confirmed that empty input triggers the "shake" animation and red border.
-- **Visit Timer**: Verified that the timer starts immediately on load and increments accurately against a stopwatch.
-
-### 2. Integration & API Testing
-Testing the synchronization between the local state and external data:
-- **Search + Category Filter**: Verified "Stacked Filters" (e.g., searching for "Python" while the "Machine Learning" category is active). Confirmed that the "No matches found" UI only appears when the intersection of filters is empty.
-- **GitHub API Lifecycle**: 
-    - **Happy Path**: Confirmed up to 6 repos load within 2 seconds on a stable connection.
-    - **Error Handling**: Simulated a network failure by enabling "Offline" mode in Chrome DevTools. Verified that the loading spinner is replaced by an error message and a working **Retry** button.
-    - **Re-connection**: Turned network back on and clicked Retry; verified data populated correctly.
-
-### 3. Responsive & Cross-Browser Testing
-| Browser/Device | Tested Features | Outcome |
-|----------------|-----------------|---------|
-| **Chrome (Desktop)** | All animations, API fetch, Sticky Nav | PASS |
-| **Firefox (Desktop)** | Filter logic, SVG icons, Scroll reveals | PASS |
-| **Mobile (iPhone 13)** | Mobile menu toggle, card stack layout, touch targets | PASS |
-| **Tablet (iPad)** | Grid layout responsiveness, font-size scaling | PASS |
-
-### 4. Performance & Audit Details
-The application was evaluated using Chrome Lighthouse to ensure optimization:
-- **LCP (Largest Contentful Paint)**: Optimized by utilizing `loading="lazy"` on the hero image and project thumbnails.
-- **TBT (Total Blocking Time)**: Minimized by using zero external JavaScript libraries and keeping `script.js` lightweight.
-- **Accessibility**: All interactive elements have `aria-label` or `label` tags; contrast ratios meet WCAG AA standards.
+| Breakpoint | Target | Key Changes |
+|-----------|--------|-------------|
+| `≤ 1024px` | Tablets | Hero switches to column layout |
+| `≤ 768px` | Mobile | Hamburger nav, single-column timeline |
+| `≤ 480px` | Small phones | Font scaling, badge snapped inward |
 
 ---
 
+## 7. Testing Procedures
 
-The following walkthroughs describe exactly how a visitor should interact with each major feature.
+### 7.1 Manual Interaction Testing
 
-### Browsing & Filtering Projects
+| Feature | Test Performed | Result |
+|---------|---------------|--------|
+| Typewriter | Watched all 7 roles cycle, timed pause at end of each word | ✅ Pass |
+| Particle canvas | Checked performance tab in DevTools — 0% CPU spike | ✅ Pass |
+| Theme toggle | Refreshed page after toggling — preference persisted | ✅ Pass |
+| Stats counter | Scrolled to section 5 times — counter only animates once per load | ✅ Pass |
+| Skill bars | Scrolled to section — bars animated once, correctly to set % | ✅ Pass |
+| Timeline scroll reveal | Slow-scrolled through each card — each faded in independently | ✅ Pass |
+| Modal open/close | Tested via button click, backdrop click, and Escape key | ✅ Pass |
+| Modal focus trap | Tabbed after opening — focus was inside modal | ✅ Pass |
+| Floating badges | Checked all 4 badges animate at different tempos | ✅ Pass |
+| Back-to-top | Appeared after scrolling 400px, smooth-scrolled to top | ✅ Pass |
 
-| Step | Action | Expected Result |
-|------|--------|-----------------|
-| 1 | Navigate to the **Projects** section via the nav bar or by scrolling. | The page smoothly scrolls and the "Projects" nav link becomes active. |
-| 2 | Type a keyword (e.g. `Python`) into the **search box**. | Cards that don't match instantly hide; matching cards remain visible. |
-| 3 | Click a **category button** (e.g. `Machine Learning`). | Only projects tagged with that category are shown; other filters stack with the search. |
-| 4 | Select a **sort order** from the "Sort by" dropdown (e.g. `Title A → Z`). | Visible cards are re-ordered accordingly. |
-| 5 | Click **All** to reset the category filter. | All projects reappear (search term still active if typed). |
-| 6 | Clear the search box. | All category-matching projects reappear. |
-| 7 | Enter a term that matches nothing. | A "🔍 No matches found" message replaces the grid with advice to adjust filters. |
+### 7.2 API & Network Testing
 
-### Viewing GitHub Activity
+| Scenario | Method | Result |
+|---------|--------|--------|
+| Happy path — repos load | Opened page with internet | 6 cards rendered with language icons, stars, forks, and links |
+| Rate limit — 60 req/hr | Tested header `X-RateLimit-Remaining` in DevTools | Error state shown with Retry button |
+| Offline mode | Chrome DevTools → Network → Offline | Styled error card appeared; Retry worked after re-enabling network |
+| XSS injection | Tested `escapeHtml('<script>alert(1)</script>')` in console | Returned `&lt;script&gt;alert(1)&lt;/script&gt;` — safe |
 
-| Step | Action | Expected Result |
-|------|--------|-----------------|
-| 1 | Scroll to the **Latest Repositories** section. | A loading spinner appears while the GitHub API is called. |
-| 2 | Wait ~1 second for data to load. | Up to 6 repository cards appear, each showing name, description, language, stars, and forks. |
-| 3 | Click the **↗ link icon** on any card. | The repository opens in a **new browser tab** on GitHub.com. |
-| 4 | (If no internet) Observe the error state. | An error message and a **Retry** button appear. Clicking Retry re-triggers the fetch. |
+### 7.3 Form Validation Testing
 
-### Sending a Contact Message
+| Case | Input | Result |
+|------|-------|--------|
+| All fields empty | Submit blank | 3 inline errors shown; status banner appears |
+| Invalid email | `not-an-email` | Email field highlighted with error message |
+| Message over 500 chars | 501 character message | Character counter turns red; error on submit |
+| Valid submission | All fields correct | Button shows loading state → success banner → form resets |
 
-| Step | Action | Expected Result |
-|------|--------|-----------------|
-| 1 | Scroll to **Get In Touch** or click the "Get In Touch" hero button. | Page scrolls to the contact section. |
-| 2 | Fill in **Name**, **Email**, and **Message** fields. | Fields are highlighted on focus; labels remain visible. |
-| 3 | Click **Send Message** with all fields valid. | Button text changes to "Sending Message..." and disables for 1.5 s. |
-| 4 | Observe the success confirmation. | A green "❤️ Success! Message sent successfully." banner appears below the form. |
-| 5 | Wait 5 seconds. | The success banner fades away automatically; the form is cleared. |
-| 6 | Submit with an empty or invalid field. | That field turns red with a shake animation; an error banner explains what needs fixing. Typing in the field removes the red highlight immediately. |
+### 7.4 Responsive Testing
+
+| Viewport | Tool | Outcome |
+|---------|------|---------|
+| 320px (iPhone SE) | Chrome DevTools | Layout intact, badges snapped in, menu toggled |
+| 768px (iPad) | Chrome DevTools | 2-column grid, timeline readable |
+| 1440px (Desktop) | Physical screen | Full layout, particle canvas covers hero |
+| Dark mode + mobile | DevTools + toggle | All colors correct in both axes |
 
 ---
 
-## File Overview
+## 8. Known Limitations
 
-- **index.html**: Main structure including Hero (with visitor widget), Projects (with Filter+Sort), Skills, GitHub Activity, and Contact sections.
-- **css/styles.css**: Comprehensive Design System using CSS variables for colors, typography, spacing, and animations.
-- **js/script.js**: The core logic engine handling theme toggling, project filtering+sorting, GitHub API synchronization, visitor name state, visit timer, and intersection observers.
-- **docs/ai-usage-report.md**: Documentation of AI assistance and learning outcomes.
-- **docs/technical-documentation.md**: This technical overview.
-- **assets/images/**: Project images, profile photos, and CV assets.
+| Limitation | Reason | Planned Fix |
+|-----------|--------|-------------|
+| **Contact form doesn't send real email** | No backend; exposing an API key client-side is a security risk | EmailJS or FormSubmit.co integration in future |
+| **GitHub API rate-limited (60 req/hr)** | Unauthenticated public token | Add a serverless proxy to authenticate with a GitHub token server-side |
+| **Particle canvas disabled on low-end CPU** | Not yet implemented | Add a `prefers-reduced-motion` media query check to skip particles |
 
-## Customization & Maintenance
+---
 
-### Adding New Projects
-- Add a new `<div class="project-card" data-category="your-category" data-date="YYYY-MM">` in the `index.html`.
-- Use the `data-category` attribute (e.g., `machine-learning`, `web-development`) to ensure the filtering logic picks it up automatically.
+## 9. Customisation Guide
+
+### Adding a New Project Card
+```html
+<article class="project-card" data-category="data" data-modal="modal-new">
+    <div class="project-image">
+        <img src="assets/images/newproject.jpg" alt="Project Name" loading="lazy">
+        <div class="project-overlay">
+            <button class="overlay-btn" data-modal-target="modal-new">View Details</button>
+        </div>
+    </div>
+    <div class="project-content">
+        <h3 class="project-title">Project Name</h3>
+        <p class="project-description">Short description here.</p>
+        <div class="project-tags">
+            <span class="tag">Python</span>
+        </div>
+    </div>
+</article>
+```
+Valid `data-category` values: `machine-learning`, `web-development`, `automation`, `data`
+
+### Adding a New Skill Bar
+```html
+<div class="skill-bar-item" data-skill="New Skill" data-level="70">
+    <div class="skill-bar-header">
+        <span class="skill-bar-name">🔧 New Skill</span>
+        <span class="skill-bar-pct">70%</span>
+    </div>
+    <div class="skill-bar-track">
+        <div class="skill-bar-fill" style="--target-width: 70%"></div>
+    </div>
+</div>
+```
 
 ### Updating GitHub Username
-- In `js/script.js`, locate the `fetchGitHubRepos` function and update the `username` constant to your GitHub handle.
+In `js/script.js`, line ~555:
+```javascript
+const username = 'your-github-handle';
+```
 
-### Modifying Design System
-- Adjust the CSS variables in the `:root` and `[data-theme="dark"]` selectors in `styles.css` to update global colors, spacing, or border-radius values.
-
-### Adding New Skills
-- Add a `<div class="skill-card">` in the skills section. These cards are automatically picked up by the scroll-reveal engine.
+### Modifying the Design System
+All design tokens are in `css/styles.css` inside `:root` and `[data-theme="dark"]`. Change one variable and it propagates everywhere.

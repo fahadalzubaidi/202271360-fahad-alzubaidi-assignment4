@@ -1,87 +1,166 @@
-# Personal Portfolio | SWE363 - Assignment 3
+# Fahad Alzubaidi — Portfolio | SWE363 Assignment 4
 
-## Project Description
-A premium, highly interactive personal portfolio website for **Fahad Alzubaidi**, enhanced with dynamic content, real-time data fetching, and sophisticated animations.
+![Portfolio Preview](assets/images/profile.jpg)
 
-## Key Features
-- **Dynamic Content Filtering**: Real-time project search and category filtering for a seamless user experience.
-- **Live Data Handling**: Integration with the **GitHub API** to fetch and display repository activity dynamically.
-- **Premium Animations**: Staggered scroll-reveal effects and spring-based UI transitions.
-- **Robust Feedback Loops**: Comprehensive form validation, loading indicators, and informative empty/error states.
-- **Responsive Design**: Optimized for all devices, from mobile phones to high-resolution desktops.
-
-## Project Structure
-- `index.html`: Main application entry point.
-- `css/styles.css`: Centralized design system and animations.
-- `js/script.js`: Core logic for filtering, API fetching, and interactivity.
-- `docs/`: Technical documentation and AI usage reports.
-
-## Setup & Running Locally
-1.  **Clone the Repository**: Download the project files to your local machine.
-2.  **Open the Site**: Simply open `index.html` in any modern web browser (Edge, Chrome, Safari). No build step or server is needed.
-3.  **Dependencies**: None. The project uses vanilla JS and CSS for maximum compatibility and performance.
+## 🔗 Live Demo
+> **[fahadalzubaidi.github.io/202271360-fahad-alzubaidi-assignment4](https://fahadalzubaidi.github.io/202271360-fahad-alzubaidi-assignment4/)**
 
 ---
 
-## 🧭 How to Use This Portfolio — Step-by-Step Guide
+## 📋 Project Description
 
-This section walks you through every interactive feature of the site.
-
-### Step 1 — Navigate Between Sections
-1. Look at the **top navigation bar** (always visible as you scroll).
-2. Click any of the links — **About Me**, **Projects**, **Skills**, **Activity**, or **Contact** — to smoothly scroll to that section.
-3. The active section is **highlighted** in the nav bar automatically as you scroll down the page.
-4. On **mobile devices**, tap the ☰ hamburger icon (top-right) to open the menu, then tap a link. The menu closes automatically after selection.
-
-### Step 2 — Toggle Light / Dark Mode
-1. Locate the **sun/moon icon button** in the top-right corner of the navigation bar.
-2. Click it once to switch to **dark mode**; click again to return to **light mode**.
-3. Your preference is **saved automatically** — the site will remember your choice the next time you visit.
-
-### Step 3 — Browse & Filter Projects
-1. Scroll down to the **Featured Projects** section (or click **Projects** in the nav).
-2. **Search by keyword**: Click the search bar at the top of the section and type any keyword (e.g., `Python`, `Machine Learning`, `inventory`). Results update in real time as you type.
-3. **Filter by category**: Click one of the category buttons below the search bar:
-   - **All** — shows every project.
-   - **Machine Learning** — shows only ML projects.
-   - **Web Development** — shows only web projects.
-   - **Automation** — shows only automation projects.
-4. You can **combine** search and category filter at the same time for precise results.
-5. If no projects match your query, a **"No matches found"** message appears. Clear the search or select **All** to reset.
-
-### Step 4 — View GitHub Activity
-1. Scroll to the **Latest Repositories** section (or click **Activity** in the nav).
-2. Repository cards are **fetched live from GitHub** — a loading spinner appears briefly while data loads.
-3. Each card shows the **repository name**, description, primary language, star count, and fork count.
-4. Click the **external link icon** (↗) on any card to open that repository directly on GitHub in a new tab.
-5. If the API call fails (e.g., no internet connection), an error message is shown with a **Retry** button — click it to try fetching again.
-
-### Step 5 — Send a Message via the Contact Form
-1. Scroll to the **Get In Touch** section (or click **Contact** in the nav, or click the **"Get In Touch"** button on the hero).
-2. Fill in the three required fields:
-   - **Name** — your full name.
-   - **Email** — a valid email address (e.g., `user@example.com`).
-   - **Message** — describe your project or inquiry.
-3. Click the **Send Message** button.
-4. **Validation** runs automatically:
-   - If any field is empty or the email is invalid, that field is highlighted in red and an error message appears below the form.
-   - Fix the highlighted fields and click Send again.
-5. On success, the button shows **"Sending Message..."** briefly, then a green **"✅ Success!"** confirmation appears. The form resets automatically.
-6. The success message disappears after 5 seconds.
-
-### Step 6 — Download My CV
-1. On the **hero (home) section**, click the **"Download My CV"** button.
-2. The PDF will download directly to your device.
+A premium, production-ready personal portfolio website for **Fahad Alzubaidi**, built from the ground up with vanilla HTML, CSS, and JavaScript. The portfolio demonstrates advanced front-end development techniques including real-time API integration, complex animations, interactive UI components, and full responsive design.
 
 ---
 
-## AI Integration
-This project was developed using **Antigravity (powered by Google Gemini)** as an agentic coding assistant. AI was used for:
-- Architecture planning and logic implementation.
-- API data normalization and integration.
-- Advanced CSS animation timing and design tokens.
+## ✨ Features
 
-*Full transparency on AI usage can be found in [docs/ai-usage-report.md](docs/ai-usage-report.md).*
+### Core Functionality
+- **Typewriter Hero Effect** — Animated multi-role cycling text in the hero section
+- **Animated Particle Background** — Subtle floating particle canvas across the entire site
+- **Live Stats Counter** — Animated number counters triggered on scroll (projects, technologies, years)
+- **Experience Timeline** — Interactive vertical timeline showcasing internships, projects, and education (from CV)
+- **Project Modals** — Click-to-open overlay popups with full project details, rich metadata, and skill tags
+- **Animated Skill Bars** — Proficiency percentage bars that animate when scrolled into view
+- **GitHub API Integration** — Live repository cards fetched and rendered dynamically with language icons
+- **Project Filtering + Sorting** — Real-time search, category filtering, and multi-field sorting
+- **Contact Form** — Full validation with inline field errors, character counter, and loading state
+- **Visitor Widget** — Personalized greeting with localStorage persistence + live session timer
 
-## Live Deployment
-[View Live Portfolio](https://fahadalzubaidi.github.io/202271360-fahad-alzubaidi-assignment3/)
+### Design & UX
+- **Dark / Light Mode Toggle** — System-aware default, persisted in `localStorage`
+- **Animated Floating Badges** — Profile image overlaid with KFUPM and interest badges
+- **Availability Badge** — Pulsing green indicator on the contact section
+- **Back-to-Top Button** — Smooth-scroll button that appears after scrolling 400px
+- **Custom Cursor Glow** — Radial gradient cursor follower on desktop (hover-aware only)
+- **Scroll-Reveal Animations** — `IntersectionObserver`-powered staggered reveal for all cards
+- **Active Nav Highlighting** — Precise section-aware navigation link highlighting
+- **Mobile-First Responsive** — Fully tested at 320px, 480px, 768px, 1024px, 1440px+
+
+---
+
+## 🏗 Project Structure
+
+```
+├── index.html                     # Main entry point
+├── css/
+│   └── styles.css                 # Full design system & component styles
+├── js/
+│   └── script.js                  # Interactive logic, API, animations
+├── assets/
+│   ├── cv/
+│   │   └── Fahad_Alzubaidi_CV.pdf # Downloadable CV
+│   └── images/
+│       ├── profile.jpg            # Hero profile photo
+│       ├── project1.jpg           # ML project thumbnail
+│       ├── project2.jpg           # Inventory system thumbnail
+│       └── project3.jpg           # KISEF website thumbnail
+├── docs/
+│   ├── technical-documentation.md # Architecture, features, testing, customisation
+│   └── ai-usage-report.md         # Full AI usage log with responsible-use section
+├── presentation/
+│   ├── slides.pdf                 # Presentation slide deck
+│   └── demo-video.mp4             # Recorded demo video (5–7 min)
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🚀 Setup & Running Locally
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/fahadalzubaidi/202271360-fahad-alzubaidi-assignment4.git
+   ```
+2. **Open the site** — Simply open `index.html` in any modern browser (Edge, Chrome, Firefox, Safari).  
+   No build step or server required.
+3. **Dependencies** — None. Pure vanilla HTML, CSS, JS for maximum compatibility and performance.
+
+---
+
+## 🧭 How to Use This Portfolio
+
+### Navigation
+- Click any nav link to **smooth-scroll** to that section
+- The active section is **auto-highlighted** in the nav bar as you scroll
+- On mobile, tap the **☰ hamburger icon** to open/close the menu
+
+### Dark / Light Mode
+- Click the **☀️/🌙 icon** (top-right) to toggle themes
+- Preference is **saved across sessions** via `localStorage`
+
+### Experience Timeline
+- Scroll to the **Experience & Education** section to see the interactive timeline
+- Cards **fade in** as they enter the viewport
+
+### Projects
+- Use the **search bar** to filter by keyword (title, description, or tech stack)
+- Use the **category buttons** (All / ML / Web / Automation) to filter
+- Use the **Sort dropdown** to reorder results
+- **Click any project card** (or "View Details") to open a full detail modal with metrics
+
+### Skills
+- Scroll to the **Skills** section to see the proficiency bars **animate in** with percentages
+
+### GitHub Activity
+- The **Latest Repositories** section fetches live data from the GitHub API
+- Each card shows the repo name, language, star count, forks, and a direct link
+- If the API fails, a **retry button** appears
+
+### Contact Form
+- Fill in name, email, (optional subject), and message
+- **Inline errors** appear for each invalid field
+- A **character counter** tracks your message length
+- On success, a confirmation message appears and the form resets
+
+### Visitor Widget
+- Type your name and click **Say Hi 👋** in the hero section for a personalized greeting
+- Your name is **remembered** across sessions via `localStorage`
+- A live **session timer** shows how long you've been on the site
+
+---
+
+## 🎨 Design System
+
+| Token | Value |
+|---|---|
+| Primary | `hsl(235, 86%, 65%)` — Indigo/Violet |
+| Accent  | `hsl(190, 85%, 50%)` — Cyan |
+| Secondary | `hsl(340, 82%, 60%)` — Rose |
+| Font (Display) | Outfit 400/600/700/800 |
+| Font (Body) | Inter 300/400/500/600/700 |
+| Border Radius | 4px → 9999px scale |
+| Transition | 150ms / 250ms / 400ms cubic-bezier |
+
+---
+
+## 🤝 AI Integration Summary
+
+| Tool | Provider | Primary Use Cases |
+|------|----------|------------------|
+| **Antigravity** | Google DeepMind (Claude Sonnet) | Architecture design, feature implementation, debugging, documentation |
+
+### What AI Helped With
+- **Particle canvas background** — Canvas 2D API animation loop with `requestAnimationFrame`
+- **Typewriter effect** — Character-by-character cycling with delete/retype phases
+- **IntersectionObserver patterns** — Scroll-triggered stat counters, skill bars, and timeline reveals
+- **Project modal system** — Accessible overlay with focus trap, Escape key handler, and backdrop close
+- **GitHub API integration** — Lazy-loaded fetch with XSS-safe `escapeHtml()` helper and error retry UI
+- **Form validation** — Inline field errors, character counter, and loading state
+- **Responsive layout strategies** — Mobile-first breakpoints at 320px, 480px, 768px, 1024px
+
+### Responsible Use
+Every AI suggestion was manually reviewed before being accepted:
+- All **personal content** (bio, job history, descriptions, GPA) written by me independently
+- **Placeholder data** invented by AI was replaced with real CV information
+- All **CSS tokens** were mapped to the project's existing design system, not AI defaults
+- **Testing** was performed by me in the browser — the AI could not run the code
+
+*Full disclosure with per-feature breakdown → [docs/ai-usage-report.md](docs/ai-usage-report.md)*
+
+---
+
+## 📄 License
+
+© 2026 Fahad Alzubaidi. All rights reserved.

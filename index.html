@@ -4,8 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional portfolio showcasing projects and skills">
-    <title>Fahad Alzubaidi | Software Engineering Student</title>
+    <meta name="description"
+        content="Fahad Alzubaidi — Software Engineering student at KFUPM. Explore projects in ML, web development, and automation. Available for internships and collaborations.">
+    <meta name="keywords"
+        content="Fahad Alzubaidi, portfolio, software engineering, KFUPM, web development, machine learning">
+    <meta name="author" content="Fahad Alzubaidi">
+    <meta property="og:title" content="Fahad Alzubaidi | Software Engineering Portfolio">
+    <meta property="og:description"
+        content="Software Engineering student at KFUPM passionate about ML, web development, and automation.">
+    <meta property="og:type" content="website">
+    <title>Fahad Alzubaidi | Software Engineering Portfolio</title>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦦</text></svg>">
     <link rel="stylesheet" href="css/styles.css">
@@ -13,45 +21,53 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <!-- Particle Background Canvas -->
+    <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo">Fahad Alzubaidi</a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">About Me</a></li>
+                <li><a href="#home" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#github" class="nav-link">Activity</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -63,27 +79,28 @@
                 <h1 class="hero-title">
                     Hi, I'm <span class="gradient-text">Fahad Alzubaidi</span>
                 </h1>
-                <p class="hero-subtitle">Software Engineering Student</p>
+                <div class="hero-typewriter">
+                    I'm a <span id="typewriterText" class="typewriter-word"></span><span
+                        class="typewriter-cursor">|</span>
+                </div>
                 <p class="hero-description">
                     KFUPM Software Engineering student passionate about creating innovative solutions through code.
                     Experienced in web development, machine learning, and event management with a focus on automation
                     and efficiency.
                 </p>
                 <div class="hero-buttons">
-                    <a href="assets/CV/Fahad_Alzubaidi_CV.pdf" download class="btn btn-primary">
+                    <a href="assets/cv/Fahad_Alzubaidi_CV.pdf" download class="btn btn-primary" id="downloadCvBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            style="margin-right: 8px;">
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Download My CV
+                        Download CV
                     </a>
-                    <a href="#contact" class="btn btn-secondary">
+                    <a href="#contact" class="btn btn-secondary" id="contactHeroBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            style="margin-right: 8px;">
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
                             </path>
                             <polyline points="22,6 12,13 2,6"></polyline>
@@ -92,9 +109,9 @@
                     </a>
                 </div>
                 <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/fahad-alzubaidi26" target="_blank" aria-label="LinkedIn"
-                        class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <a href="https://www.linkedin.com/in/fahad-alzubaidi26" target="_blank" rel="noopener noreferrer"
+                        aria-label="LinkedIn Profile" class="social-icon" id="linkedinHeroBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
                             </path>
@@ -102,8 +119,18 @@
                             <circle cx="4" cy="4" r="2"></circle>
                         </svg>
                     </a>
-                    <a href="mailto:fahad.alzubaidi7@gmail.com" aria-label="Email" class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <a href="https://github.com/fahadalzubaidi" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub Profile" class="social-icon" id="githubHeroBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="mailto:fahad.alzubaidi7@gmail.com" aria-label="Send Email" class="social-icon"
+                        id="emailHeroBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
                             </path>
@@ -111,49 +138,227 @@
                         </svg>
                     </a>
                 </div>
-                <!-- Visitor Name & Timer Widget (State Management) -->
+                <!-- Visitor Name & Timer Widget -->
                 <div class="visitor-widget" id="visitorWidget">
                     <div id="visitorGreeting" class="visitor-greeting" style="display:none;"></div>
                     <div class="visitor-input-row" id="visitorInputRow">
-                        <input type="text" id="visitorNameInput" placeholder="Enter your name for a personal greeting" aria-label="Your name" maxlength="40">
-                        <button id="visitorNameBtn" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Say Hi 👋</button>
+                        <input type="text" id="visitorNameInput" placeholder="Enter your name for a personal greeting"
+                            aria-label="Your name" maxlength="40">
+                        <button id="visitorNameBtn" class="btn btn-primary"
+                            style="padding: 0.5rem 1rem; font-size:0.85rem;">Say Hi 👋</button>
                     </div>
                     <div class="visit-timer" id="visitTimer">⏱ Time on site: <span id="timerDisplay">0s</span></div>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="image-wrapper">
-                    <img src="assets/images/profile.jpg" alt="Profile" class="profile-img" loading="lazy">
+                    <img src="assets/images/profile.jpg" alt="Fahad Alzubaidi - Software Engineering Student"
+                        class="profile-img" loading="eager">
                     <div class="image-glow"></div>
+                    <!-- Floating badges -->
+                    <div class="float-badge float-badge--top">
+                        <span>🎓</span> KFUPM
+                    </div>
+                    <div class="float-badge float-badge--bottom">
+                        <span>🤖</span> ML Enthusiast
+                    </div>
+                    <div class="float-badge float-badge--left">
+                        <span>📈</span> Data Analysis
+                    </div>
+                    <div class="float-badge float-badge--right">
+                        <span>💡</span> Open to Work
+                    </div>
                 </div>
             </div>
             <div class="scroll-indicator">
-                <a href="#projects" aria-label="Scroll to projects section">
+                <a href="#experience" aria-label="Scroll to experience section">
                     <div class="mouse"></div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- =====================================================
+         LIVE STATS COUNTER SECTION
+         ===================================================== -->
+    <section class="stats-section" id="stats" aria-label="Quick Stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-target="3" data-suffix="+">
+                    <div class="stat-number" id="stat-projects">0</div>
+                    <div class="stat-label">Professional Roles</div>
+                </div>
+                <div class="stat-item" data-target="10" data-suffix="+">
+                    <div class="stat-number" id="stat-techs">0</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+                <div class="stat-item" data-target="4" data-suffix="">
+                    <div class="stat-number" id="stat-years">0</div>
+                    <div class="stat-label">Years of Study</div>
+                </div>
+                <div class="stat-item" data-target="100" data-suffix="%">
+                    <div class="stat-number" id="stat-passion">0</div>
+                    <div class="stat-label">Passion for Code</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         EXPERIENCE & EDUCATION TIMELINE
+         ===================================================== -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-badge">📋 BACKGROUND</div>
+            <h2 class="section-title">Experience & Education</h2>
+            <p class="section-subtitle">My journey in software engineering and beyond</p>
+
+            <div class="timeline">
+
+                <!-- Education (top anchor) -->
+                <div class="timeline-item timeline-item--right" data-reveal>
+                    <div class="timeline-dot timeline-dot--edu"></div>
+                    <div class="timeline-card timeline-card--edu">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">🎓</div>
+                            <div>
+                                <h3 class="timeline-title">B.Sc. Software Engineering</h3>
+                                <span class="timeline-org">King Fahd University of Petroleum &amp; Minerals (KFUPM) |
+                                    2022 – 2027</span>
+                            </div>
+                        </div>
+                        <p class="timeline-description">
+                            Bachelor of Science in Software Engineering. Coursework covers data structures, algorithms,
+                            machine learning, software design patterns, databases, and full-stack web development.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">GPA: 3.525 / 4.0</span>
+                            <span class="tag">Dhahran, Saudi Arabia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Experience 1 — KIKX -->
+                <div class="timeline-item timeline-item--left" data-reveal>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">🏢</div>
+                            <div>
+                                <h3 class="timeline-title">Administrative Assistant <span
+                                        class="timeline-type">Part-time</span></h3>
+                                <span class="timeline-org">KFUPM Institute for Knowledge Exchange (KIKX) | Sep 2024 –
+                                    Present</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Recruited and coordinated <strong>150+ volunteers</strong> for international conferences
+                                and major events at KIKX.</li>
+                            <li>Managed end-to-end registration for <strong>20+ seminars</strong> and Zoom-hosted
+                                webinars, ensuring seamless participation.</li>
+                            <li>Improved volunteer assignments and event workflows using Excel and specialised event
+                                management software.</li>
+                            <li>Supported operations for events with <strong>250+ attendees</strong>, ensuring smooth
+                                logistics and successful execution.</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Excel</span>
+                            <span class="tag">Event Management</span>
+                            <span class="tag">Operations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Experience 2 — Unipal -->
+                <div class="timeline-item timeline-item--right" data-reveal>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">📱</div>
+                            <div>
+                                <h3 class="timeline-title">Marketing &amp; Business Development Coordinator <span
+                                        class="timeline-type">Part-time</span></h3>
+                                <span class="timeline-org">Unipal | May 2025 – Aug 2025</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Coordinated influencer marketing campaigns across multiple social media platforms.</li>
+                            <li>Created partnership proposals for organisations to collaborate with Unipal.</li>
+                            <li>Built an <strong>automated system</strong> to collect and consolidate the company's
+                                viewership data from multiple social media platforms.</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Marketing</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Business Development</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Experience 3 — KISEF Tech Committee -->
+                <div class="timeline-item timeline-item--left" data-reveal>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-icon">💡</div>
+                            <div>
+                                <h3 class="timeline-title">Tech Committee Leader</h3>
+                                <span class="timeline-org">KISEF — Knowledge and Engineering Forum | Jan 2025 – May
+                                    2025</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Led a team of <strong>6 members</strong> in designing and developing the conference
+                                website, which attracted <strong>10K+ visits</strong>.</li>
+                            <li>Managed and maintained the registration process for <strong>9 workshops</strong> and all
+                                conference events.</li>
+                            <li>Automated email communications for attendees — confirmations, reminders, and event
+                                updates.</li>
+                            <li>Provided technical support across all committees to ensure smooth operations and
+                                successful conference execution.</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Leadership</span>
+                            <span class="tag">Web Development</span>
+                            <span class="tag">Email Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         PROJECTS SECTION
+         ===================================================== -->
     <section id="projects" class="projects">
         <div class="container">
+            <div class="section-badge">🚀 WORK</div>
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-subtitle">A showcase of my recent work and creative endeavors</p>
-            
+
             <div class="projects-filter">
                 <div class="search-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="projectSearch" placeholder="Search projects by name, technology, or description..." aria-label="Search projects">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="search-icon" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="projectSearch"
+                        placeholder="Search projects by name, technology, or description..."
+                        aria-label="Search projects">
                 </div>
                 <div class="filter-sort-row">
-                    <div class="filter-buttons" id="filterButtons">
+                    <div class="filter-buttons" id="filterButtons" role="group"
+                        aria-label="Filter projects by category">
                         <button class="filter-btn active" data-filter="all">All</button>
                         <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
                         <button class="filter-btn" data-filter="web-development">Web Development</button>
                         <button class="filter-btn" data-filter="automation">Automation</button>
+                        <button class="filter-btn" data-filter="data">Data</button>
                     </div>
-                    <!-- Sort Dropdown (Complex Logic: filter + sort) -->
                     <div class="sort-wrapper">
                         <label for="projectSort" class="sort-label">Sort by:</label>
                         <select id="projectSort" aria-label="Sort projects">
@@ -169,16 +374,29 @@
 
             <div class="projects-grid" id="projectsGrid">
                 <!-- Project 1 -->
-                <div class="project-card" data-category="machine-learning" data-date="2024-01">
+                <article class="project-card" data-category="machine-learning" data-date="2024-01" data-modal="modal-ml"
+                    role="article" tabindex="0" aria-label="Obesity Classification ML project">
                     <div class="project-image">
                         <img src="assets/images/project1.jpg" alt="Obesity Classification ML Model" loading="lazy">
+                        <div class="project-overlay">
+                            <button class="overlay-btn" data-modal-target="modal-ml" aria-label="View project details">
+                                View Details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Obesity Classification Using Machine Learning</h3>
                         <p class="project-description">
                             Built a machine learning model to classify obesity levels based on demographic and lifestyle
                             data. Performed data cleaning, feature engineering, and trained models including Logistic
-                            Regression and Random Forest.
+                            Regression and Random Forest achieving 95%+ accuracy.
                         </p>
                         <div class="project-tags">
                             <span class="tag">Python</span>
@@ -186,12 +404,25 @@
                             <span class="tag">Scikit-learn</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- Project 2 -->
-                <div class="project-card" data-category="automation" data-date="2024-06">
+                <article class="project-card" data-category="automation" data-date="2024-06" data-modal="modal-inv"
+                    role="article" tabindex="0" aria-label="Inventory Management project">
                     <div class="project-image">
                         <img src="assets/images/project2.jpg" alt="Inventory Management System" loading="lazy">
+                        <div class="project-overlay">
+                            <button class="overlay-btn" data-modal-target="modal-inv" aria-label="View project details">
+                                View Details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Inventory Management System</h3>
@@ -206,92 +437,322 @@
                             <span class="tag">Automation</span>
                         </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- Project 3 -->
-                <div class="project-card" data-category="web-development" data-date="2023-09">
+                <article class="project-card" data-category="web-development" data-date="2023-09"
+                    data-modal="modal-kisef" role="article" tabindex="0" aria-label="KISEF Forum website project">
                     <div class="project-image">
                         <img src="assets/images/project3.jpg" alt="KISEF Forum Website" loading="lazy">
+                        <div class="project-overlay">
+                            <button class="overlay-btn" data-modal-target="modal-kisef"
+                                aria-label="View project details">
+                                View Details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">KISEF Forum Website</h3>
                         <p class="project-description">
                             Developed a comprehensive website for the KISEF forum using Webflow. The site features event
-                            information, speaker profiles, sponsor
-                            showcases, and registration forms for attendees.
+                            information, speaker profiles, sponsor showcases, and registration forms for attendees.
                         </p>
                         <div class="project-tags">
                             <span class="tag">Webflow</span>
                             <span class="tag">Web Design</span>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- =====================================================
+         PROJECT MODALS
+         ===================================================== -->
+    <!-- Modal: ML Project -->
+    <div class="modal-overlay" id="modal-ml" role="dialog" aria-modal="true" aria-labelledby="modal-ml-title">
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-image">
+                <img src="assets/images/project1.jpg" alt="Obesity Classification ML Model">
+            </div>
+            <div class="modal-body">
+                <span class="modal-category">Machine Learning</span>
+                <h2 id="modal-ml-title" class="modal-title">Obesity Classification Using Machine Learning</h2>
+                <p>
+                    This project involved building a multi-class classification pipeline to predict obesity levels from
+                    a dataset
+                    of 2,111 individuals. The workflow covered exploratory data analysis, statistical feature selection,
+                    one-hot encoding of categorical variables, and comparison of five ML algorithms.
+                </p>
+                <p>
+                    The final model — an optimized Random Forest classifier — achieved <strong>95.3% accuracy</strong>
+                    on the
+                    holdout test set. Key engineering decisions included handling class imbalance with SMOTE and tuning
+                    hyperparameters via GridSearchCV.
+                </p>
+                <div class="modal-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Pandas</span>
+                    <span class="tag">Scikit-learn</span>
+                    <span class="tag">Matplotlib</span>
+                    <span class="tag">SMOTE</span>
+                    <span class="tag">Random Forest</span>
+                </div>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="meta-label">📅 Year</span>
+                        <span>2024</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="meta-label">🎯 Accuracy</span>
+                        <span>95.3%</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="meta-label">📊 Dataset</span>
+                        <span>2,111 samples</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Inventory -->
+    <div class="modal-overlay" id="modal-inv" role="dialog" aria-modal="true" aria-labelledby="modal-inv-title">
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-image">
+                <img src="assets/images/project2.jpg" alt="Inventory Management System">
+            </div>
+            <div class="modal-body">
+                <span class="modal-category">Automation</span>
+                <h2 id="modal-inv-title" class="modal-title">Inventory Management System</h2>
+                <p>
+                    Developed a fully automated inventory management solution on top of Google Sheets using Google Apps
+                    Script.
+                    The system replaces manual spreadsheet management with a structured check-in/check-out workflow.
+                </p>
+                <p>
+                    Key features include automated email notifications triggered on item lending, real-time timestamps
+                    logged
+                    against each transaction, and a dashboard summary for club officers to monitor equipment
+                    availability at a glance.
+                </p>
+                <div class="modal-tags">
+                    <span class="tag">Google Apps Script</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Google Sheets API</span>
+                    <span class="tag">Email Automation</span>
+                </div>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="meta-label">📅 Year</span>
+                        <span>2024</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="meta-label">⚡ Status</span>
+                        <span>Active Use</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: KISEF -->
+    <div class="modal-overlay" id="modal-kisef" role="dialog" aria-modal="true" aria-labelledby="modal-kisef-title">
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-image">
+                <img src="assets/images/project3.jpg" alt="KISEF Forum Website">
+            </div>
+            <div class="modal-body">
+                <span class="modal-category">Web Development</span>
+                <h2 id="modal-kisef-title" class="modal-title">KISEF Forum Website</h2>
+                <p>
+                    Designed and launched the official website for the KFUPM International Science and Engineering Forum
+                    (KISEF).
+                    The site was built using Webflow and served as the primary digital face of the event for 200+
+                    participants.
+                </p>
+                <p>
+                    The site featured dynamic speaker profile grids, a countdown timer, sponsor showcase panels, and a
+                    fully
+                    embedded online registration form with validation.
+                </p>
+                <div class="modal-tags">
+                    <span class="tag">Webflow</span>
+                    <span class="tag">Web Design</span>
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">Responsive Design</span>
+                </div>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="meta-label">📅 Year</span>
+                        <span>2023</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="meta-label">👥 Attendees</span>
+                        <span>200+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         SKILLS SECTION
+         ===================================================== -->
     <section id="skills" class="skills">
         <div class="container">
-            <div class="skills-badge">🛠️ SKILLS</div>
-            <h2 class="skills-main-title">Technologies</h2>
-            <div class="skills-grid">
-                <!-- Python -->
-                <div class="skill-card">
-                    <div class="skill-icon">🐍</div>
-                    <h3 class="skill-name">Python</h3>
+            <div class="section-badge">🛠️ SKILLS</div>
+            <h2 class="skills-main-title">Technologies & Proficiency</h2>
+            <p class="section-subtitle">Skills acquired through coursework, projects, and self-study</p>
+
+            <div class="skills-layout">
+                <!-- Skill Bars -->
+                <div class="skill-bars" id="skillBars">
+                    <div class="skill-bar-item" data-skill="Python" data-level="85">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">🐍 Python</span>
+                            <span class="skill-bar-pct">85%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="JavaScript" data-level="80">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">🌐 JavaScript</span>
+                            <span class="skill-bar-pct">80%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="HTML & CSS" data-level="90">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">🖥️ HTML & CSS</span>
+                            <span class="skill-bar-pct">90%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Java" data-level="70">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">☕ Java</span>
+                            <span class="skill-bar-pct">70%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Machine Learning" data-level="75">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">🤖 Machine Learning</span>
+                            <span class="skill-bar-pct">75%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="SQL / MongoDB" data-level="65">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">🗄️ SQL / MongoDB</span>
+                            <span class="skill-bar-pct">65%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Data Analysis" data-level="80">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">📈 Data Analysis</span>
+                            <span class="skill-bar-pct">80%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item" data-skill="Data Automation" data-level="78">
+                        <div class="skill-bar-header">
+                            <span class="skill-bar-name">⚙️ Data Automation</span>
+                            <span class="skill-bar-pct">78%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="--target-width: 78%"></div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Java -->
-                <div class="skill-card">
-                    <div class="skill-icon">☕</div>
-                    <h3 class="skill-name">Java</h3>
-                </div>
-                <!-- HTML, CSS, JS -->
-                <div class="skill-card">
-                    <div class="skill-icon">🌐</div>
-                    <h3 class="skill-name">HTML, CSS, JS</h3>
-                </div>
-                <!-- React -->
-                <div class="skill-card">
-                    <div class="skill-icon">⚛️</div>
-                    <h3 class="skill-name">React</h3>
-                </div>
-                <!-- Node.js -->
-                <div class="skill-card">
-                    <div class="skill-icon">🟢</div>
-                    <h3 class="skill-name">Node.js</h3>
-                </div>
-                <!-- SQL/MongoDB -->
-                <div class="skill-card">
-                    <div class="skill-icon">🗄️</div>
-                    <h3 class="skill-name">SQL / MongoDB</h3>
-                </div>
-                <!-- Git/GitHub -->
-                <div class="skill-card">
-                    <div class="skill-icon">🔧</div>
-                    <h3 class="skill-name">Git / GitHub</h3>
-                </div>
-                <!-- PyTorch/TensorFlow -->
-                <div class="skill-card">
-                    <div class="skill-icon">🤖</div>
-                    <h3 class="skill-name">PyTorch / TensorFlow</h3>
-                </div>
-                <!-- Google Apps Script -->
-                <div class="skill-card">
-                    <div class="skill-icon">📊</div>
-                    <h3 class="skill-name">Google Apps Script</h3>
+
+                <!-- Skill Cards Grid -->
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">🐍</div>
+                        <h3 class="skill-name">Python</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">☕</div>
+                        <h3 class="skill-name">Java</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🌐</div>
+                        <h3 class="skill-name">HTML, CSS, JS</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">⚛️</div>
+                        <h3 class="skill-name">React</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🟢</div>
+                        <h3 class="skill-name">Node.js</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🗄️</div>
+                        <h3 class="skill-name">SQL / MongoDB</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🔧</div>
+                        <h3 class="skill-name">Git / GitHub</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🤖</div>
+                        <h3 class="skill-name">PyTorch / TF</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📊</div>
+                        <h3 class="skill-name">Apps Script</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📈</div>
+                        <h3 class="skill-name">Data Analysis</h3>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">⚙️</div>
+                        <h3 class="skill-name">Data Automation</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GitHub Activity Section -->
+    <!-- =====================================================
+         GITHUB ACTIVITY SECTION
+         ===================================================== -->
     <section id="github" class="github">
         <div class="container">
             <div class="github-badge">📂 REAL-TIME DATA</div>
             <h2 class="section-title">Latest Repositories</h2>
-            <p class="section-subtitle">Dynamically fetched from my GitHub API for the most up-to-date activity</p>
-            
+            <p class="section-subtitle">Dynamically fetched from the GitHub API for the most up-to-date activity</p>
+
             <div id="github-repos-container" class="github-repos-grid">
                 <!-- Data will be loaded here via JS -->
                 <div class="loading-state">
@@ -302,42 +763,58 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- =====================================================
+         CONTACT SECTION
+         ===================================================== -->
     <section id="contact" class="contact">
         <div class="container">
+            <div class="section-badge">✉️ CONTACT</div>
             <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Have a project in mind? Let's work together!</p>
+            <p class="section-subtitle">Have a project in mind or just want to say hello? I'd love to hear from you!</p>
             <div class="contact-content">
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" novalidate>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                        <input type="text" id="name" name="name" required placeholder="Your Name" autocomplete="name">
+                        <span class="field-error" id="nameError" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com"
+                            autocomplete="email">
+                        <span class="field-error" id="emailError" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What's this about?"
+                            autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" required
-                            placeholder="Tell me about your project..."></textarea>
+                            placeholder="Tell me about your project or idea..."></textarea>
+                        <span class="field-error" id="messageError" role="alert"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
-                    <div class="form-status" id="formStatus"></div>
+                    <div class="char-count" id="charCount">0 / 500 characters</div>
+                    <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-spinner" aria-hidden="true"></span>
+                    </button>
+                    <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
                 </form>
                 <div class="contact-info">
                     <div class="info-item">
                         <div class="info-icon">📧</div>
                         <div class="info-text">
                             <h4>Email</h4>
-                            <p>fahad.alzubaidi7@gmail.com</p>
+                            <a href="mailto:fahad.alzubaidi7@gmail.com">fahad.alzubaidi7@gmail.com</a>
                         </div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">📱</div>
                         <div class="info-text">
                             <h4>Phone</h4>
-                            <p>+966 53 324 8247</p>
+                            <a href="tel:+966533248247">+966 53 324 8247</a>
                         </div>
                     </div>
                     <div class="info-item">
@@ -346,6 +823,18 @@
                             <h4>Location</h4>
                             <p>Riyadh / Dhahran, Saudi Arabia</p>
                         </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">💼</div>
+                        <div class="info-text">
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/fahad-alzubaidi26" target="_blank"
+                                rel="noopener noreferrer">fahad-alzubaidi26</a>
+                        </div>
+                    </div>
+                    <div class="availability-badge">
+                        <span class="availability-dot"></span>
+                        Available for internships & collaborations
                     </div>
                 </div>
             </div>
@@ -356,15 +845,31 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 Fahad Alzubaidi. All rights reserved.</p>
+                <div class="footer-left">
+                    <p class="footer-name">Fahad Alzubaidi</p>
+                    <p class="footer-tagline">Software Engineering Student @ KFUPM</p>
+                </div>
+                <div class="footer-center">
+                    <p>&copy; 2026 Fahad Alzubaidi. All rights reserved.</p>
+                </div>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/fahad-alzubaidi26" target="_blank"
+                    <a href="https://www.linkedin.com/in/fahad-alzubaidi26" target="_blank" rel="noopener noreferrer"
                         aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://github.com/fahadalzubaidi" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">GitHub</a>
                     <a href="mailto:fahad.alzubaidi7@gmail.com" aria-label="Email">Email</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
     <script src="js/script.js"></script>
 </body>
