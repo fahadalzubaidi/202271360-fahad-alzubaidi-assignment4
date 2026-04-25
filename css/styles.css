@@ -2078,28 +2078,7 @@ section {
     }
 
     .float-badge {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.75rem;
-    }
-
-    .float-badge--top {
-        right: -10%;
-        top: 2%;
-    }
-
-    .float-badge--bottom {
-        left: -10%;
-        bottom: 2%;
-    }
-
-    .float-badge--left {
-        left: -12%;
-        top: 50%;
-    }
-
-    .float-badge--right {
-        right: -12%;
-        bottom: 52%;
+        display: none;
     }
 
     .hero-buttons,
