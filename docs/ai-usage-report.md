@@ -47,13 +47,6 @@ This report documents all use of Artificial Intelligence tools during the develo
 - **What AI did:** Implemented scroll-event listener checking `window.scrollY > 400` to toggle a `.visible` class that controls opacity and `translateY`.
 - **What I did:** Reviewed the scroll threshold value and CSS transition for feel.
 
-### 2.9 GitHub API — Lazy Load + XSS Safety
-- **What AI did:** Improved the existing GitHub fetch by adding an `IntersectionObserver` that delays the API call until the GitHub section enters the viewport. Also introduced an `escapeHtml()` helper function to prevent Cross-Site Scripting (XSS) from untrusted API text content.
-- **What I did:** Verified the `escapeHtml` function correctly neutralises `<`, `>`, and `"` characters and confirmed it was applied to all user-visible repo fields (`name`, `description`, `language`).
-
-### 2.10 Emoji & Content Corrections
-- **What AI did:** Changed `💅` → `🖥️` for HTML & CSS skill bar and the GitHub language icon map after I flagged it as unprofessional.
-- **What I did:** Noticed the issue, requested the change, and confirmed it rendered correctly in both locations (HTML and JS).
 
 ---
 
@@ -64,10 +57,7 @@ This report documents all use of Artificial Intelligence tools during the develo
 | 1 | *"Rewrite script.js to support: typewriter, particle canvas, stats counter, skill bars, project modals, back-to-top, and GitHub lazy-load."* | Full JS rewrite for Assignment 4 |
 | 2 | *"Fix the Experience timeline to match my real CV — KIKX, Unipal, KISEF — with correct titles, dates, and bullet points."* | CV-accurate timeline |
 | 3 | *"Add Data Analysis and Data Automation to skill bars, skill cards, typewriter roles, and project filter."* | Skills & filter expansion |
-| 4 | *"Change the 💅 emoji — it's unprofessional."* | Emoji correction (HTML + JS) |
-| 5 | *"Add 2 more floating badges around the profile photo."* | 4 floating badges total |
-| 6 | *"Update the README, ai-usage-report, and technical-documentation for Assignment 4."* | Documentation update |
-| 7 | *"Give me a ChatGPT prompt to build my presentation and tell me which screenshots to take from the site."* | Presentation prep |
+| 4 | *"Add 2 more floating badges around the profile photo."* | 4 floating badges total |
 
 ---
 
@@ -80,7 +70,6 @@ This report documents all use of Artificial Intelligence tools during the develo
 
 ### Challenges
 - **Placeholder Content**: The AI initially filled timeline entries with fake job titles (e.g., "IT Intern @ SABIC") since it didn't know my real history. I had to give it my CV to correct this.
-- **Emoji Oversight**: The `💅` emoji for CSS was generated automatically and required manual review to catch.
 - **CSS File Size**: The AI expanded the stylesheet significantly. I reviewed for duplicate rules and redundant selectors before accepting changes.
 
 ---
@@ -110,8 +99,6 @@ This section addresses the academic integrity requirements of the assignment rub
 | Stats counter targets | AI set "2 years of study" and "5 technologies" | Corrected to **3 years** (2022→2025) and **10+ technologies** from CV |
 | CSS design tokens | AI used generic `hsl(210, …)` blue | Updated to the project's existing indigo palette `hsl(235, 86%, 65%)` |
 
-**Key principle followed:** No AI suggestion was accepted without being read line-by-line and verified against the existing codebase. All personal content (bio, job history, project descriptions) was written by me independently.
-
 ---
 
 ## 7. Risks & Mitigations
@@ -120,7 +107,6 @@ This section addresses the academic integrity requirements of the assignment rub
 |------|--------------|-------------------|
 | **Hallucinated personal information** | AI invented "IT Intern @ SABIC" and other fake experience entries | Replaced all content with real CV data; AI cannot know my personal history |
 | **Over-engineered CSS** | Badge left/right positions used `calc()` unnecessarily | Simplified to plain percentage values after testing |
-| **Security — API keys** | AI suggested environment variables for a future EmailJS integration | Noted the unresolved issue in the technical docs instead of shipping an insecure solution |
 | **Dead code risk** | New skill categories added to JS filter logic that didn't match any `data-category` in HTML | Cross-checked every `data-filter` button value against all `data-category` attributes in `index.html` |
 
 ---
@@ -138,4 +124,4 @@ To preserve academic integrity, the following were done entirely by me:
 
 ## Summary
 
-AI was an essential productivity tool for Assignment 4, enabling a premium, multi-feature portfolio that would have taken significantly longer to build manually. However, the AI required consistent human direction, content correction, and validation at every step. **The final product reflects my personal identity and real experience — the AI only built the structure I designed.**
+AI was an essential productivity tool for Assignment 4, enabling a premium, multi-feature portfolio that would have taken significantly longer to build manually. However, the AI required consistent human direction, content correction, and validation at every step.

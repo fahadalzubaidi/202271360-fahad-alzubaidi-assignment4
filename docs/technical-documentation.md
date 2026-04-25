@@ -394,53 +394,8 @@ All user state uses `localStorage` — no backend required:
 
 ---
 
-## 7. Testing Procedures
 
-### 7.1 Manual Interaction Testing
-
-| Feature | Test Performed | Result |
-|---------|---------------|--------|
-| Typewriter | Watched all 7 roles cycle, timed pause at end of each word | ✅ Pass |
-| Particle canvas | Checked performance tab in DevTools — 0% CPU spike | ✅ Pass |
-| Theme toggle | Refreshed page after toggling — preference persisted | ✅ Pass |
-| Stats counter | Scrolled to section 5 times — counter only animates once per load | ✅ Pass |
-| Skill bars | Scrolled to section — bars animated once, correctly to set % | ✅ Pass |
-| Timeline scroll reveal | Slow-scrolled through each card — each faded in independently | ✅ Pass |
-| Modal open/close | Tested via button click, backdrop click, and Escape key | ✅ Pass |
-| Modal focus trap | Tabbed after opening — focus was inside modal | ✅ Pass |
-| Floating badges | Checked all 4 badges animate at different tempos | ✅ Pass |
-| Back-to-top | Appeared after scrolling 400px, smooth-scrolled to top | ✅ Pass |
-
-### 7.2 API & Network Testing
-
-| Scenario | Method | Result |
-|---------|--------|--------|
-| Happy path — repos load | Opened page with internet | 6 cards rendered with language icons, stars, forks, and links |
-| Rate limit — 60 req/hr | Tested header `X-RateLimit-Remaining` in DevTools | Error state shown with Retry button |
-| Offline mode | Chrome DevTools → Network → Offline | Styled error card appeared; Retry worked after re-enabling network |
-| XSS injection | Tested `escapeHtml('<script>alert(1)</script>')` in console | Returned `&lt;script&gt;alert(1)&lt;/script&gt;` — safe |
-
-### 7.3 Form Validation Testing
-
-| Case | Input | Result |
-|------|-------|--------|
-| All fields empty | Submit blank | 3 inline errors shown; status banner appears |
-| Invalid email | `not-an-email` | Email field highlighted with error message |
-| Message over 500 chars | 501 character message | Character counter turns red; error on submit |
-| Valid submission | All fields correct | Button shows loading state → success banner → form resets |
-
-### 7.4 Responsive Testing
-
-| Viewport | Tool | Outcome |
-|---------|------|---------|
-| 320px (iPhone SE) | Chrome DevTools | Layout intact, badges snapped in, menu toggled |
-| 768px (iPad) | Chrome DevTools | 2-column grid, timeline readable |
-| 1440px (Desktop) | Physical screen | Full layout, particle canvas covers hero |
-| Dark mode + mobile | DevTools + toggle | All colors correct in both axes |
-
----
-
-## 8. Known Limitations
+## 7. Known Limitations
 
 | Limitation | Reason | Planned Fix |
 |-----------|--------|-------------|
@@ -450,7 +405,7 @@ All user state uses `localStorage` — no backend required:
 
 ---
 
-## 9. Customisation Guide
+## 8. Customisation Guide
 
 ### Adding a New Project Card
 ```html
