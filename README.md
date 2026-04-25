@@ -1,7 +1,5 @@
 # Fahad Alzubaidi — Portfolio | SWE363 Assignment 4
 
-![Portfolio Preview](assets/images/profile.jpg)
-
 ## 🔗 Live Demo
 > **[fahadalzubaidi.github.io/202271360-fahad-alzubaidi-assignment4](https://fahadalzubaidi.github.io/202271360-fahad-alzubaidi-assignment4/)**
 
