@@ -2074,6 +2074,7 @@ section {
 
     .image-wrapper {
         max-width: 280px;
+        margin-bottom: var(--spacing-xl);
     }
 
     .float-badge {
@@ -2082,23 +2083,23 @@ section {
     }
 
     .float-badge--top {
-        right: -4%;
-        top: 5%;
+        right: -10%;
+        top: 2%;
     }
 
     .float-badge--bottom {
-        left: -4%;
-        bottom: 5%;
+        left: -10%;
+        bottom: 2%;
     }
 
     .float-badge--left {
-        left: -6%;
-        top: 30%;
+        left: -12%;
+        top: 50%;
     }
 
     .float-badge--right {
-        right: -6%;
-        bottom: 30%;
+        right: -12%;
+        bottom: 52%;
     }
 
     .hero-buttons,
