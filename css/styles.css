@@ -2076,22 +2076,29 @@ section {
         max-width: 280px;
     }
 
+    .float-badge {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
     .float-badge--top {
-        right: 0;
+        right: -4%;
+        top: 5%;
     }
 
     .float-badge--bottom {
-        left: 0;
+        left: -4%;
+        bottom: 5%;
     }
 
     .float-badge--left {
-        left: 0;
-        top: 36%;
+        left: -6%;
+        top: 30%;
     }
 
     .float-badge--right {
-        right: 0;
-        bottom: 26%;
+        right: -6%;
+        bottom: 30%;
     }
 
     .hero-buttons,
